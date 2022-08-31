@@ -209,7 +209,7 @@ public class FragmentIllust extends SwipeFragment<FragmentIllustBinding> {
                 return true;
             }
         });
-        baseBind.illustTag.setOnTagLongClickListener(new TagFlowLayout.OnTagLongClickListener(){
+        baseBind.illustTag.setOnTagLongClickListener(new TagFlowLayout.OnTagLongClickListener() {
             @Override
             public boolean onTagLongClick(View view, int position, FlowLayout parent) {
                 // 弹出菜单：固定+复制
@@ -243,49 +243,52 @@ public class FragmentIllust extends SwipeFragment<FragmentIllustBinding> {
         baseBind.illustId.setText(getString(R.string.string_194, illust.getId()));
         baseBind.userId.setText(getString(R.string.string_195, illust.getUser().getId()));
 
-        final BottomSheetBehavior<?> sheetBehavior = BottomSheetBehavior.from(baseBind.coreLinear);
+        baseBind.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        baseBind.coreLinear.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                final int realHeight = baseBind.bottomBar.getHeight() +
-                        baseBind.viewDivider.getHeight() +
-                        baseBind.secondLinear.getHeight();
-                final int maxHeight = getResources().getDisplayMetrics().heightPixels * 3 / 4;
-                ViewGroup.LayoutParams params = baseBind.coreLinear.getLayoutParams();
-                int slideMaxHeight = Math.min(realHeight, maxHeight);
-                params.height = slideMaxHeight;
-                baseBind.coreLinear.setLayoutParams(params);
+        recyHeight = baseBind.recyclerView.getHeight();
+        IllustAdapter adapter = new IllustAdapter(mActivity, FragmentIllust.this, illust, recyHeight, false);
+        baseBind.recyclerView.setAdapter(adapter);
 
-                final int bottomCardHeight = baseBind.bottomBar.getHeight();
-                final int deltaY = slideMaxHeight - baseBind.bottomBar.getHeight();
-                sheetBehavior.setPeekHeight(bottomCardHeight, true);
+        try {
+            final BottomSheetBehavior<?> sheetBehavior = BottomSheetBehavior.from(baseBind.coreLinear);
 
-                //设置占位view大小
-                ViewGroup.LayoutParams headParams = baseBind.helperView.getLayoutParams();
-                headParams.height = bottomCardHeight - DensityUtil.dp2px(16.0f);
-                baseBind.helperView.setLayoutParams(headParams);
+            baseBind.coreLinear.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    final int realHeight = baseBind.bottomBar.getHeight() +
+                            baseBind.viewDivider.getHeight() +
+                            baseBind.secondLinear.getHeight();
+                    final int maxHeight = getResources().getDisplayMetrics().heightPixels * 3 / 4;
+                    ViewGroup.LayoutParams params = baseBind.coreLinear.getLayoutParams();
+                    int slideMaxHeight = Math.min(realHeight, maxHeight);
+                    params.height = slideMaxHeight;
+                    baseBind.coreLinear.setLayoutParams(params);
 
-                sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-                    @Override
-                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                    final int bottomCardHeight = baseBind.bottomBar.getHeight();
+                    final int deltaY = slideMaxHeight - baseBind.bottomBar.getHeight();
+                    sheetBehavior.setPeekHeight(bottomCardHeight, true);
 
-                    }
+                    //设置占位view大小
+                    ViewGroup.LayoutParams headParams = baseBind.helperView.getLayoutParams();
+                    headParams.height = bottomCardHeight - DensityUtil.dp2px(16.0f);
+                    baseBind.helperView.setLayoutParams(headParams);
 
-                    @Override
-                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                        baseBind.refreshLayout.setTranslationY(-deltaY * slideOffset * 0.7f);
-                    }
-                });
+                    sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                        @Override
+                        public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
-                baseBind.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+                        }
 
-                recyHeight = baseBind.recyclerView.getHeight();
-                IllustAdapter adapter = new IllustAdapter(mActivity, FragmentIllust.this, illust, recyHeight, false);
-                baseBind.recyclerView.setAdapter(adapter);
-                baseBind.coreLinear.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-        });
+                        @Override
+                        public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                            baseBind.refreshLayout.setTranslationY(-deltaY * slideOffset * 0.7f);
+                        }
+                    });
+                    baseBind.coreLinear.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
+        } catch (IllegalArgumentException ignored) {
+        }
 
         baseBind.related.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -523,10 +526,10 @@ public class FragmentIllust extends SwipeFragment<FragmentIllustBinding> {
         return baseBind.refreshLayout;
     }
 
-    private void updateFollowUserUI(int status){
-        if(AppLevelViewModel.FollowUserStatus.isFollowed(status)){
+    private void updateFollowUserUI(int status) {
+        if (AppLevelViewModel.FollowUserStatus.isFollowed(status)) {
             baseBind.follow.setText(R.string.string_177);
-        }else{
+        } else {
             baseBind.follow.setText(R.string.string_178);
         }
     }
