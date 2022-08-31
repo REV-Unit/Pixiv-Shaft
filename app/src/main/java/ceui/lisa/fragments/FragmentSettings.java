@@ -518,41 +518,41 @@ public class FragmentSettings extends SwipeFragment<FragmentSettingsBinding> {
                 }
             });
 
-            baseBind.lineCount.setText(getString(R.string.string_349, Shaft.sSettings.getLineCount()));
-            baseBind.lineCountRela.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = 0;
-                    if (Shaft.sSettings.getLineCount() == 3) {
-                        index = 1;
-                    } else if (Shaft.sSettings.getLineCount() == 4) {
-                        index = 2;
-                    }
-                    String[] LINE_COUNT = new String[]{
-                            getString(R.string.string_349, 2),
-                            getString(R.string.string_349, 3),
-                            getString(R.string.string_349, 4)
-                    };
-                    final int selectIndex = index;
-                    new QMUIDialog.CheckableDialogBuilder(mActivity)
-                            .setCheckedIndex(selectIndex)
-                            .setSkinManager(QMUISkinManager.defaultInstance(mContext))
-                            .addItems(LINE_COUNT, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (which != selectIndex) {
-                                        int lineCount = which + 2;
-                                        Shaft.sSettings.setLineCount(lineCount);
-                                        baseBind.lineCount.setText(getString(R.string.string_349, lineCount));
-                                        Local.setSettings(Shaft.sSettings);
-                                        Common.showToast(getString(R.string.please_restart_app), 2);
-                                    }
-                                    dialog.dismiss();
-                                }
-                            })
-                            .show();
-                }
-            });
+//            baseBind.lineCount.setText(getString(R.string.string_349, Shaft.sSettings.getLineCount()));
+//            baseBind.lineCountRela.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int index = 0;
+//                    if (Shaft.sSettings.getLineCount() == 3) {
+//                        index = 1;
+//                    } else if (Shaft.sSettings.getLineCount() == 4) {
+//                        index = 2;
+//                    }
+//                    String[] LINE_COUNT = new String[]{
+//                            getString(R.string.string_349, 2),
+//                            getString(R.string.string_349, 3),
+//                            getString(R.string.string_349, 4)
+//                    };
+//                    final int selectIndex = index;
+//                    new QMUIDialog.CheckableDialogBuilder(mActivity)
+//                            .setCheckedIndex(selectIndex)
+//                            .setSkinManager(QMUISkinManager.defaultInstance(mContext))
+//                            .addItems(LINE_COUNT, new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    if (which != selectIndex) {
+//                                        int lineCount = which + 2;
+//                                        Shaft.sSettings.setLineCount(lineCount);
+//                                        baseBind.lineCount.setText(getString(R.string.string_349, lineCount));
+//                                        Local.setSettings(Shaft.sSettings);
+//                                        Common.showToast(getString(R.string.please_restart_app), 2);
+//                                    }
+//                                    dialog.dismiss();
+//                                }
+//                            })
+//                            .show();
+//                }
+//            });
 
             // 首页底部页签顺序
             setOrderName();

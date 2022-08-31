@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.PathUtils;
 
+import ceui.lisa.activities.Shaft;
 import ceui.lisa.helper.NavigationLocationHelper;
 import ceui.lisa.helper.ThemeHelper;
 
@@ -39,8 +40,17 @@ public class Settings {
 
     private int lineCount = 2;
 
+    // 瀑布流每个item的宽度（单位是dp）
+    // 实际会以这个宽度作为基准，动态计算出瀑布流的列数
+    // 并进行调整
+    // 所以可能最后的宽度并不是这个数值
+    private final int columnWidth = 320/*dp*/;
+
     public int getLineCount() {
-        return lineCount;
+//        return lineCount;
+        double columnWidthPx = DensityUtil.dp2px(columnWidth);
+        int rowCount = (int) Math.floor(DeviceUtils.INSTANCE.getDeviceWidth(Shaft.getContext()) / columnWidthPx);
+        return Math.max(rowCount, 2);
     }
 
     public void setLineCount(int lineCount) {
@@ -191,7 +201,7 @@ public class Settings {
     private boolean illustDetailKeepScreenOn = false; //插画二级详情保持屏幕常亮
 
     public String getAppLanguage() {
-        if(!TextUtils.isEmpty(appLanguage)){
+        if (!TextUtils.isEmpty(appLanguage)) {
             return appLanguage;
         } else {
             return ALL_LANGUAGE[0];
@@ -245,7 +255,7 @@ public class Settings {
     public ThemeHelper.ThemeType getThemeType() {
         try {
             return ThemeHelper.ThemeType.valueOf(themeType);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ThemeHelper.ThemeType.DEFAULT_MODE;
         }
     }

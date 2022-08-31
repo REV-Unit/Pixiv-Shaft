@@ -667,28 +667,28 @@
 
                         <View style="@style/half_divider" />
 
-                        <RelativeLayout
-                            android:id="@+id/line_count_rela"
-                            style="@style/ripple_rela">
+<!--                        <RelativeLayout-->
+<!--                            android:id="@+id/line_count_rela"-->
+<!--                            style="@style/ripple_rela">-->
 
-                            <TextView
-                                style="@style/setting_text_left"
-                                android:text="@string/string_336" />
+<!--                            <TextView-->
+<!--                                style="@style/setting_text_left"-->
+<!--                                android:text="@string/string_336" />-->
 
-                            <TextView
-                                android:id="@+id/line_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_marginEnd="@dimen/sixteen_dp"
-                                android:layout_centerVertical="true"
-                                android:text="@string/string_95"
-                                android:textColor="?attr/colorPrimary"
-                                android:textSize="14sp">
-                            </TextView>
+<!--                            <TextView-->
+<!--                                android:id="@+id/line_count"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_alignParentEnd="true"-->
+<!--                                android:layout_marginEnd="@dimen/sixteen_dp"-->
+<!--                                android:layout_centerVertical="true"-->
+<!--                                android:text="@string/string_95"-->
+<!--                                android:textColor="?attr/colorPrimary"-->
+<!--                                android:textSize="14sp">-->
+<!--                            </TextView>-->
 
 
-                        </RelativeLayout>
+<!--                        </RelativeLayout>-->
 
                         <View style="@style/half_divider" />
 
